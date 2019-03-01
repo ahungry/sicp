@@ -1,3 +1,19 @@
+(use-modules (statprof))
+
+;; Always complains nothing recorded, lame
+(define (profile)
+  (statprof-reset 0 50000 #t)
+  (statprof-start)
+  (my-expt-tco 10 10)
+  (statprof-stop)
+  (statprof-display))
+
+(statprof
+ (lambda ()
+   ;; (my-expt-tco 10 10)
+   (map 1+ (iota 100))
+   #f))
+
 ;; SICP: 1-1-7
 
 (define (square x)
@@ -52,3 +68,18 @@
         (iter (* counter product)
               (+ counter 1))))
   (iter 1 1))
+
+;; 1-2-4 Exponentiation
+;; Computes in O(n) steps and O(1) space
+(define (my-expt b n)
+  (if (= n 0)
+      1
+      (* b (expt b (- n 1)))))
+
+(define (my-expt-tco b n)
+  (define (iter counter product)
+    (if (= counter 0)
+        product
+        (iter (- counter 1)
+              (* b product))))
+  (iter n 1))
