@@ -143,3 +143,5 @@
         (my-iter (op acc (car seq))
                  (cdr seq))))
   (my-iter 0 sequence))
+
+;; Leaving off at 2.3.3 (Sets)
