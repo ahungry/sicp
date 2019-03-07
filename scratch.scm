@@ -144,4 +144,8 @@
                  (cdr seq))))
   (my-iter 0 sequence))
 
+;; Equivalent
+(define (add-one n) (+ 1 n))
+(define add-one-l (lambda (n) (+ 1 n)))
+
 ;; Leaving off at 2.3.3 (Sets)
