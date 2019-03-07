@@ -130,7 +130,6 @@
       (cons (proc (car items))
             (my-map proc (cdr items)))))
 
-
 (define (my-accumulate op initial sequence)
   (if (null? sequence)
       initial
