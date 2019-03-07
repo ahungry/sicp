@@ -11,6 +11,7 @@
 (statprof
  (lambda ()
    ;; (my-expt-tco 10 10)
+   ;; iota = get a range/series of 1..n
    (map 1+ (iota 100))
    #f))
 
@@ -50,6 +51,9 @@
       (* n (factorial (- n 1)))))
 
 ;; Compute with a linear iterative process
+;; This is different than recursive procedure, because the return value
+;; is itself the function (the function is in the final position, therefore
+;; we do not have to save the function as a return value of another computation.
 (define (fact-iter product counter max-count)
   (if (> counter max-count)
       product
@@ -119,3 +123,24 @@
 
 (define (my-cdr z)
   (z (lambda (p q) q)))
+
+(define (my-map proc items)
+  (if (null? items)
+      #nil
+      (cons (proc (car items))
+            (my-map proc (cdr items)))))
+
+
+(define (my-accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (my-accumulate op initial (cdr sequence)))))
+
+(define (my-accumulate-cs op initial sequence)
+  (define (my-iter acc seq)
+    (if (null? seq)
+        acc
+        (my-iter (op acc (car seq))
+                 (cdr seq))))
+  (my-iter 0 sequence))
