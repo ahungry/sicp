@@ -83,3 +83,29 @@
         (iter (- counter 1)
               (* b product))))
   (iter n 1))
+
+;; 1-3-1
+(define (sum term a next b)
+  (if (> a b)
+      0
+      (+ (term a)
+         (sum term (next a) next b))))
+
+(define (inc n) (+ n 1))
+(define (cube n) (* n n n))
+(define (sum-cubes a b)
+  (sum cube a inc b))
+
+(define (identity x) x)
+(define (sum-integers a b)
+  (sum identity a inc b))
+
+(define (make-rat n d) (cons n d))
+(define (numer x) (car x))
+(define (denom x) (cdr x))
+(define (print-rat x)
+  (newline)
+  (display (numer x))
+  (display "/")
+  (display (denom x))
+  (newline))
