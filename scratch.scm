@@ -159,4 +159,25 @@
       set
       (cons x set)))
 
+(define (intersection-set set1 set2)
+  (cond ((or (null? set1) (null? set2)) '())
+        ((element-of-set? (car set1) set2)
+         (cons (car set1)
+               (intersection-set (cdr set1) set2)))
+        (else (intersection-set (cdr set1) set2))))
+
+;; Union would be the unique values of both sides...
+;; This presumes that both set1 and set2 are actually
+;; sets, not containing duplicates themselves...
+(define (union-set set1 set2)
+  (cond ((and (null? set1) (null? set2)) '())
+        ((null? set1)
+         (cons (car set2)
+               (union-set (cdr set2) '())))
+        ((element-of-set? (car set1) set2)
+         (union-set (cdr set1) set2))
+        (else
+         (cons (car set1)
+               (union-set (cdr set1) set2)))))
+
 ;; 2.4.2
