@@ -166,6 +166,16 @@
                (intersection-set (cdr set1) set2)))
         (else (intersection-set (cdr set1) set2))))
 
+(define (make-set l)
+  (define (iter col seen)
+    (cond ((null? col) '())
+          ((element-of-set? (car col) seen)
+           (iter (cdr col) seen))
+          (else
+           (cons (car col)
+                 (iter (cdr col) (adjoin-set (car col) seen))))))
+  (iter l '()))
+
 ;; Union would be the unique values of both sides...
 ;; This presumes that both set1 and set2 are actually
 ;; sets, not containing duplicates themselves...
