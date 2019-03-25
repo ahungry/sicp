@@ -1,5 +1,6 @@
 (use-modules (statprof))
 
+
 ;; Always complains nothing recorded, lame
 (define (profile)
   (statprof-reset 0 50000 #t)
@@ -190,4 +191,4 @@
          (cons (car set1)
                (union-set (cdr set1) set2)))))
 
-;; 2.4.2
+;; 2.5
