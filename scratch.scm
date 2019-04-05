@@ -215,7 +215,6 @@
                balance)
         "Insufficient funds")))
 
-
 (define (make-account balance)
   (define (withdraw amount)
     (if (>= balance amount)
