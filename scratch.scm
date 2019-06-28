@@ -235,4 +235,25 @@
 ((W2 'deposit) 30)
 ((W2 'withdraw) 30)
 
+;; Not 3.2.3 - just messing with call/cc
+
+(define topk #f)
+
+(define (blub)
+  (* 10
+     (call/cc
+      (lambda (k)
+        (set! topk k)
+        (k 20)))))
+
+;; call-with-current-continuation
+(define (sweet)
+  (let [[occupation "programmer"]       ; Pretend this is a very slow and heavy query
+        [name (call/cc (lambda (k) (set! topk k) (k "Matt")))]]
+    (display "Hello ")
+    (display name)
+    (display ", you are a ")
+    (display occupation)
+    (newline)))
+
 ;; 3.2.3
