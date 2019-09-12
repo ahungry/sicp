@@ -215,9 +215,43 @@
                balance)
         "Insufficient funds")))
 
-(define W1 (make-withdraw 100))
-(W1 50)
-(W1 30)
-(W1 30)
+(define (make-account balance)
+  (define (withdraw amount)
+    (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Insufficient funds"))
+  (define (deposit amount)
+    (set! balance (+ balance amount))
+    balance)
+  (define (dispatch m)
+    (cond ((eq? m 'withdraw) withdraw)
+          ((eq? m 'deposit) deposit)
+          (else (error "Unknown request -- MAKE-ACCOUNT"
+                       m))))
+  dispatch)
 
-;; 3.2.3
+(define W2 (make-account 100))
+((W2 'deposit) 30)
+((W2 'withdraw) 30)
+
+;; Not 3.2.3 - just messing with call/cc
+
+(define topk #f)
+
+(define (blub)
+  (* 10
+     (call/cc
+      (lambda (k)
+        (set! topk k)
+        (k 20)))))
+
+;; call-with-current-continuation
+(define (sweet)
+  (let [[occupation "programmer"]       ; Pretend this is a very slow and heavy query
+        [name (call/cc (lambda (k) (set! topk k) (k "Matt")))]]
+    (display "Hello ")
+    (display name)
+    (display ", you are a ")
+    (display occupation)
+    (newline)))
