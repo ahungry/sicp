@@ -215,4 +215,9 @@
                balance)
         "Insufficient funds")))
 
+(define W1 (make-withdraw 100))
+(W1 50)
+(W1 30)
+(W1 30)
+
 ;; 3.2.3
