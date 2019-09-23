@@ -258,5 +258,3 @@
     (display ", you are a ")
     (display occupation)
     (newline)))
-
-;; 3.2.3
