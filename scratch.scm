@@ -258,3 +258,15 @@
     (display ", you are a ")
     (display occupation)
     (newline)))
+
+(define (add-5)
+  (display "Please enter a number, we will add 5 to it: ")
+  (let [[your-number (read)]]
+    (+ 5 your-number)))
+
+(define (add-two-numbers)
+  (display "Please enter a number: ")
+  (let [[first-number (read)]]
+    (display "Please enter a second number: ")
+    (let [[second-number (read)]]
+      (+ first-number second-number))))
